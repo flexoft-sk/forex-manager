@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\EmailSender\NotificationManager.csproj" />
+    <ProjectReference Include="..\..\NotificationManager\NotificationManager.csproj" />
   </ItemGroup>
 
 </Project>
