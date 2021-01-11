@@ -5,13 +5,15 @@ VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ForexManager", "ForexManager.csproj", "{DDF9DB3B-E6EA-4429-8BEE-401A3E00AB4D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RatesFetcher", "..\RatesFetcher\RatesFetcher.csproj", "{52A0D7FB-F67E-4F81-B20F-83722513F105}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RatesFetcher", "..\RatesFetcher\RatesFetcher.csproj", "{52A0D7FB-F67E-4F81-B20F-83722513F105}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailSender", "..\EmailSender\EmailSender.csproj", "{0A716B77-85C6-41A1-A977-872D19F6139E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotificationManager", "..\EmailSender\NotificationManager.csproj", "{0A716B77-85C6-41A1-A977-872D19F6139E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{56717531-4E03-4E94-8BDD-703D8DC33C7D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RatesFetcherTests", "..\Tests\RatesFetcherTests\RatesFetcherTests.csproj", "{6634F445-195F-4D8E-91BB-53143FF854BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RatesFetcherTests", "..\Tests\RatesFetcherTests\RatesFetcherTests.csproj", "{6634F445-195F-4D8E-91BB-53143FF854BA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailSenderTests", "..\Tests\EmailSenderTests\EmailSenderTests.csproj", "{BF84B864-5D26-405E-A957-DD11BC448E76}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,12 +37,17 @@ Global
 		{6634F445-195F-4D8E-91BB-53143FF854BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6634F445-195F-4D8E-91BB-53143FF854BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6634F445-195F-4D8E-91BB-53143FF854BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF84B864-5D26-405E-A957-DD11BC448E76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF84B864-5D26-405E-A957-DD11BC448E76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF84B864-5D26-405E-A957-DD11BC448E76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF84B864-5D26-405E-A957-DD11BC448E76}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{6634F445-195F-4D8E-91BB-53143FF854BA} = {56717531-4E03-4E94-8BDD-703D8DC33C7D}
+		{BF84B864-5D26-405E-A957-DD11BC448E76} = {56717531-4E03-4E94-8BDD-703D8DC33C7D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BC98E35C-A13B-4DBB-BFDF-8B96FDD6EB66}
