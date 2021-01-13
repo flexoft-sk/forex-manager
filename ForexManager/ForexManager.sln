@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmailSenderTests", "..\Test
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotificationManager", "..\NotificationManager\NotificationManager.csproj", "{48C90403-AC4E-4A84-995E-B17C12C781D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store", "..\Store\Store.csproj", "{36870FCB-3293-4C27-89C7-8CAB93F25F08}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Store", "..\Store\Store.csproj", "{36870FCB-3293-4C27-89C7-8CAB93F25F08}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store.Tests", "..\Tests\Store.Tests\Store.Tests.csproj", "{C80186A7-53E0-449D-87BA-C2C615669F4D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +49,10 @@ Global
 		{36870FCB-3293-4C27-89C7-8CAB93F25F08}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{36870FCB-3293-4C27-89C7-8CAB93F25F08}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{36870FCB-3293-4C27-89C7-8CAB93F25F08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C80186A7-53E0-449D-87BA-C2C615669F4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C80186A7-53E0-449D-87BA-C2C615669F4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C80186A7-53E0-449D-87BA-C2C615669F4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C80186A7-53E0-449D-87BA-C2C615669F4D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -54,6 +60,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{6634F445-195F-4D8E-91BB-53143FF854BA} = {56717531-4E03-4E94-8BDD-703D8DC33C7D}
 		{BF84B864-5D26-405E-A957-DD11BC448E76} = {56717531-4E03-4E94-8BDD-703D8DC33C7D}
+		{C80186A7-53E0-449D-87BA-C2C615669F4D} = {56717531-4E03-4E94-8BDD-703D8DC33C7D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BC98E35C-A13B-4DBB-BFDF-8B96FDD6EB66}

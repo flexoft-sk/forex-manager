@@ -3,8 +3,8 @@
     /// <summary> Encapsulates storage related repositories</summary>
     public interface IDataStore
     {
-        /// <summary>Gets the session module.</summary>
-        /// <value>The session module.</value>
-        IPosition Transaction { get; }
+        /// <summary>Gets the position module.</summary>
+        /// <value>The position module.</value>
+        IPosition Position { get; }
     }
 }

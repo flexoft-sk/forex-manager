@@ -3,20 +3,20 @@ using System.Runtime.CompilerServices;
 using Flexoft.ForexManager.Store.Provider.Entities;
 using Microsoft.Extensions.Logging;
 
-[assembly: InternalsVisibleTo("Flexoft.ForexManager.Store.Tests")]
+[assembly: InternalsVisibleTo("Store.Tests")]
 
 namespace Flexoft.ForexManager.Store.Provider
 {
     class EfDataStore : IDataStore
     {
-        readonly Lazy<IPosition> _transaction;
+        readonly Lazy<IPosition> _position;
         readonly ILogger _logger;
         readonly ForexStoreContext _outerContext;
 
         /// <summary>Prevents a default instance of the <see cref="EfDataStore" /> class from being created.</summary>
         EfDataStore()
         {
-            _transaction = new Lazy<IPosition>(() => new PositionRepository(this, _logger));
+            _position = new Lazy<IPosition>(() => new PositionRepository(this, _logger));
         }
 
         /// <summary>Initializes a new instance of the <see cref="EfDataStore" /> class.</summary>
@@ -61,7 +61,7 @@ namespace Flexoft.ForexManager.Store.Provider
 
         /// <summary>Gets the session.</summary>
         /// <value>The session.</value>
-        public IPosition Transaction => _transaction.Value;
+        public IPosition Position => _position.Value;
 
         /// <summary>Gets the context.</summary>
         /// <returns>ForexStoreContext instance</returns>
