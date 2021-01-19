@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotificationManager", "..\N
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Store", "..\Store\Store.csproj", "{36870FCB-3293-4C27-89C7-8CAB93F25F08}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store.Tests", "..\Tests\Store.Tests\Store.Tests.csproj", "{C80186A7-53E0-449D-87BA-C2C615669F4D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Store.Tests", "..\Tests\Store.Tests\Store.Tests.csproj", "{C80186A7-53E0-449D-87BA-C2C615669F4D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
