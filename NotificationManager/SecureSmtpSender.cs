@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Net;
 using System.Net.Mail;
 
@@ -7,13 +8,20 @@ namespace Flexoft.ForexManager.NotificationManager
     public class SecureSmtpSender : INotificationManager
     {
         private readonly EmailSenderOptions _options;
+        private readonly ILogger<SecureSmtpSender> _logger;
 
-        public SecureSmtpSender(EmailSenderOptions options)
+        public SecureSmtpSender(ILogger<SecureSmtpSender> logger, EmailSenderOptions options)
         {
             _options = options ?? throw new ArgumentNullException(nameof(options));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        public void Notify(string title, string content, string receiver)
+		public string Dump()
+		{
+            return $"{_options.Server}:{_options.Port} {_options.User} {_options.Sender}";
+		}
+
+		public void Notify(string title, string content, string receiver)
         {
             Send(title, content, receiver);
         }
@@ -43,6 +51,7 @@ namespace Flexoft.ForexManager.NotificationManager
             message.To.Add(to);
 
             smtpClient.Send(message);
+            _logger.LogInformation($"Mail sent succesfully to {to}");
         }
     }
 }

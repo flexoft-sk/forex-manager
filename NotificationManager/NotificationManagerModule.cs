@@ -7,9 +7,10 @@ namespace Flexoft.ForexManager.NotificationManager
     {
         public static void RegisterNotificationManager(this IServiceCollection services)
         {
-            services.AddSingleton<INotificationManager>(provider => {
+            services.AddSingleton<INotificationManager, SecureSmtpSender>();
+            services.AddSingleton(provider => {
                 var config = provider.GetService<IConfiguration>();
-                var options = new EmailSenderOptions
+                return new EmailSenderOptions
                 {
                     Password = config["EmailSender:Password"],
                     Port = int.Parse(config["EmailSender:Port"]),
@@ -17,8 +18,6 @@ namespace Flexoft.ForexManager.NotificationManager
                     Server = config["EmailSender:Server"],
                     User = config["EmailSender:User"],
                 };
-
-                return new SecureSmtpSender(options);
             });
         }
     }

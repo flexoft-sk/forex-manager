@@ -273,3 +273,8 @@ DocumentSealing/ClientApp/junit.xml
 /Coso.App.PoT.Dispute/Coso.App.PoT.Dispute/coso/junit.xml
 /Coso.App.PoT.Dispute/Coso.App.PoT.Dispute/appsettings.Personal.json
 /ForexManager/appsettings.Development.json
+/ForexManager/Properties/ServiceDependencies/FxMan20210120220141 - Zip Deploy/storage1.arm.json
+/ForexManager/Properties/ServiceDependencies/FxMan20210120220141 - Zip Deploy/appInsights1.arm.json
+/ForexManager/Properties/ServiceDependencies/FxMan20210120220141 - Zip Deploy/profile.arm.json
+/ForexManager/Properties/PublishProfiles/FxMan20210120220141 - Zip Deploy.pubxml
+/ForexManager/Properties/serviceDependencies.FxMan20210120220141 - Zip Deploy.json
