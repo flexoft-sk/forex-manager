@@ -1,9 +1,9 @@
-﻿using Flexoft.ForexManager.NotificationManager;
+﻿using Flexoft.ForexManager.BusinessLogic;
+using Flexoft.ForexManager.NotificationManager;
 using Flexoft.ForexManager.RatesFetcher;
+using Flexoft.ForexManager.Store;
 using Microsoft.Azure.Functions.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using System;
 using System.IO;
 
 [assembly: FunctionsStartup(typeof(Flexoft.ForexManager.ForexManager.Startup))]
@@ -18,14 +18,8 @@ namespace Flexoft.ForexManager.ForexManager
         {
             builder.Services.RegisterNotificationManager();
             builder.Services.RegisterRatesFetcher();
-
-            builder.Services.AddSingleton(provider => {
-                var config = provider.GetService<IConfiguration>();
-                return new Options
-                {
-                    NotificationTarget = config["ForexManager:NotificationTarget"],
-                };
-            });
+            builder.Services.RegisterStore();
+            builder.Services.RegiterBusinessLogic();
         }
 
         public override void ConfigureAppConfiguration(IFunctionsConfigurationBuilder builder)

@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <AssemblyName>Flexoft.ForexManager.BusinessLogic</AssemblyName>
+    <RootNamespace>Flexoft.ForexManager.BusinessLogic</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NotificationManager\NotificationManager.csproj" />
+    <ProjectReference Include="..\RatesFetcher\RatesFetcher.csproj" />
+    <ProjectReference Include="..\Store\Store.csproj" />
+  </ItemGroup>
+
+</Project>

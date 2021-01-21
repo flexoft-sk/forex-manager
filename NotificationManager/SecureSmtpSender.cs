@@ -16,11 +16,6 @@ namespace Flexoft.ForexManager.NotificationManager
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-		public string Dump()
-		{
-            return $"{_options.Server}:{_options.Port} {_options.User} {_options.Sender}";
-		}
-
 		public void Notify(string title, string content, string receiver)
         {
             Send(title, content, receiver);

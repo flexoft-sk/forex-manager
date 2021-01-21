@@ -19,6 +19,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Store", "..\Store\Store.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Store.Tests", "..\Tests\Store.Tests\Store.Tests.csproj", "{C80186A7-53E0-449D-87BA-C2C615669F4D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLogic", "..\BusinessLogic\BusinessLogic.csproj", "{3EAA054F-2B6F-470F-883A-6C19C567F5A8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +55,10 @@ Global
 		{C80186A7-53E0-449D-87BA-C2C615669F4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C80186A7-53E0-449D-87BA-C2C615669F4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C80186A7-53E0-449D-87BA-C2C615669F4D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3EAA054F-2B6F-470F-883A-6C19C567F5A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EAA054F-2B6F-470F-883A-6C19C567F5A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3EAA054F-2B6F-470F-883A-6C19C567F5A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3EAA054F-2B6F-470F-883A-6C19C567F5A8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

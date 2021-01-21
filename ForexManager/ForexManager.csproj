@@ -13,6 +13,7 @@
     <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="3.0.7" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BusinessLogic\BusinessLogic.csproj" />
     <ProjectReference Include="..\NotificationManager\NotificationManager.csproj" />
     <ProjectReference Include="..\RatesFetcher\RatesFetcher.csproj" />
     <ProjectReference Include="..\Store\Store.csproj" />

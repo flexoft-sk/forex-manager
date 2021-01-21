@@ -17,7 +17,7 @@
 
   <ItemGroup>
     <None Update="Scripts\V01.01.sql">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 

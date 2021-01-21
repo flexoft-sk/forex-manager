@@ -8,18 +8,13 @@ namespace Flexoft.ForexManager.Store
 {
     public static class DataStoreModule
     {
-        public static void RegisterStore(this IServiceCollection services, IConfiguration configuration)
+        public static void RegisterStore(this IServiceCollection services)
         {
-            if (configuration == null)
+            services.AddSingleton(provider =>
             {
-                throw new ArgumentNullException(nameof(configuration));
-            }
-
-            var storeOptions = new StoreOptions { ConnectionString = configuration["Store:ConnectionString"] };
-
-            services.AddSingleton(p =>
-            {
-                var logger = p.GetService<ILogger<DataStoreFactory>>();
+                var config = provider.GetService<IConfiguration>();
+                var storeOptions = new StoreOptions { ConnectionString = config["Store:ConnectionString"] };
+                var logger = provider.GetService<ILogger<DataStoreFactory>>();
 
                 var retryPolicy = Policy
                     .Handle<Exception>()
