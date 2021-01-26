@@ -60,7 +60,7 @@ namespace Flexoft.ForexManager.Store.Provider
         {
             using var ctx = GetContext();
 
-            return await ctx.Position.Where(p => !p.CloseAmount.HasValue && p.FromCurrency == from && p.ToCurrency == to && p.OpenRate < rateLimit)
+            return await ctx.Position.Where(p => !p.CloseAmount.HasValue && p.FromCurrency == from && p.ToCurrency == to && p.OpenRate > rateLimit)
                 .ToListAsync();
         }
     }
