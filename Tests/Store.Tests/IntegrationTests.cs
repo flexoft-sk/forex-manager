@@ -24,8 +24,9 @@ namespace Store.Tests
             var logger = Substitute.For<ILogger<DataStoreFactory>>();
 
             serviceCollection.AddSingleton(logger);
+            serviceCollection.AddSingleton<IConfiguration>(configuration);
 
-            serviceCollection.RegisterStore(configuration);
+            serviceCollection.RegisterStore();
 
             var provider = serviceCollection.BuildServiceProvider();
 

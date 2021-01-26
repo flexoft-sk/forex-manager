@@ -1,13 +1,18 @@
 using Flexoft.ForexManager.NotificationManager;
+using Microsoft.Extensions.Logging;
+using NSubstitute;
 using NUnit.Framework;
 
 namespace EmailSenderTests
 {
     public class SmtplSenderTests
     {
+        ILogger<SecureSmtpSender> _logger;
+
         [SetUp]
         public void Setup()
         {
+            _logger = Substitute.For<ILogger<SecureSmtpSender>>();
         }
 
         [Test]
@@ -22,7 +27,7 @@ namespace EmailSenderTests
                 Sender = "test@forexmanager.sk"
             };
 
-            var sender = new SecureSmtpSender(options);
+            var sender = new SecureSmtpSender(_logger, options);
             sender.Send("test", "<h3>From unit test</h3>", "vladimir.iszer@gmail.com");
         }
     }

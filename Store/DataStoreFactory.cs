@@ -32,7 +32,8 @@ namespace Flexoft.ForexManager.Store
                 DeployChanges.To
                     .SqlDatabase(connectionString)
                     .WithTransaction()
-                    .WithScriptsFromFileSystem(scriptFolderPath)
+                    //.WithScriptsFromFileSystem(scriptFolderPath)
+                    .WithScriptsEmbeddedInAssembly(Assembly.GetExecutingAssembly(), s => s.EndsWith("sql"))
                     .LogTo(new UpgradeLogger(_logger))
                     .Build();
 

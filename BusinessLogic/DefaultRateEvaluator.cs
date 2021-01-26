@@ -51,7 +51,7 @@ namespace Flexoft.ForexManager.BusinessLogic
 
 			if (DateTime.UtcNow.Hour == _options.OpenHour)
 			{
-				var reversedAmount = _options.OpenAmount * reversedRate;
+				var reversedAmount = _options.OpenAmount / reversedRate;
 				await _dataStore.Position.OpenAsync(from.ToString(), to.ToString(), _options.OpenAmount, rate);
 				await _dataStore.Position.OpenAsync(to.ToString(), from.ToString(), reversedAmount, reversedRate);
 

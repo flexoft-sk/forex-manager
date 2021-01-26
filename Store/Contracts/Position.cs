@@ -12,20 +12,20 @@ namespace Flexoft.ForexManager.Store.Contracts
         
         public string ToCurrency { get; set; }
 
-        public float OpenAmount { get; set; }
+        public double OpenAmount { get; set; }
 
         public DateTime OpenStamp { get; set; }
 
-        public float OpenRate { get; set; }
+        public double OpenRate { get; set; }
 
         public DateTime? CloseStamp { get; set; }
 
-        public float? CloseRate { get; set; }
+        public double? CloseRate { get; set; }
 
-        public float? CloseAmount { get; set; }
+        public double? CloseAmount { get; set; }
 
-        public float? Diff { get; set; }
+        public double? Diff { get; set; }
 
-        public float? Fee { get; set; }
+        public double? Fee { get; set; }
     }
 }
