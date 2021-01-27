@@ -16,15 +16,14 @@ namespace Flexoft.ForexManager.Store
 
         public IDataStore GetDataStore(StoreOptions options)
         {
-            var scriptFolderPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Scripts");
-            EnsureRelationalDbUpToDate(options.ConnectionString, scriptFolderPath);
+            EnsureRelationalDbUpToDate(options.ConnectionString);
             return new EfDataStore(options, _logger);
         }
 
-        void EnsureRelationalDbUpToDate(string connectionString, string scriptFolderPath)
+        void EnsureRelationalDbUpToDate(string connectionString)
         {
             //_logger.LogDebug($"ConnectionString: {connectionString}");
-            _logger.LogInformation($"Checking DB for state with script folder set to {scriptFolderPath}");
+            _logger.LogInformation($"Checking DB for state with embedded scripts");
 
             EnsureDatabase.For.SqlDatabase(connectionString);
 

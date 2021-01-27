@@ -63,5 +63,59 @@ namespace Flexoft.ForexManager.Store.Provider
             return await ctx.Position.Where(p => !p.CloseAmount.HasValue && p.FromCurrency == from && p.ToCurrency == to && p.OpenRate > rateLimit)
                 .ToListAsync();
         }
+
+        public async Task<Position> GetPositionAsync(int id)
+        {
+            using var ctx = GetContext();
+
+            var position = await ctx.Position.AsNoTracking().SingleOrDefaultAsync(predicate => predicate.Id == id);
+
+            if (position == null)
+            {
+                throw new ArgumentException("Position does not exist", nameof(id));
+            }
+
+            return position;
+        }
+
+        public async Task<double> CloseAsync(int id, double amount, double rate, double? fee) 
+        {
+            using var outerCtx = GetContext();
+            var strategy = outerCtx.Database.CreateExecutionStrategy();
+
+            return await strategy.ExecuteAsync(async () =>
+            {
+                using var ctx = GetContext();
+                var txn = await ctx.Database.BeginTransactionAsync();
+
+                try
+                {
+                    var position = await ctx.Position.SingleAsync(predicate => predicate.Id == id);
+
+                    if (position.CloseAmount.HasValue)
+                    {
+                        throw new InvalidOperationException($"Position {id} is already closed.");
+                    }
+
+                    position.CloseAmount = amount;
+                    position.CloseRate = rate;
+                    position.CloseStamp = DateTime.UtcNow;
+                    position.Fee = fee;
+
+                    position.Diff = position.CloseAmount - position.OpenAmount - (fee ?? 0);
+
+                    await ctx.SaveChangesAsync();
+                    await txn.CommitAsync();
+
+                    return position.Diff.Value;
+                }
+                catch
+                {
+                    // no need to await here
+                    try { txn?.RollbackAsync(); } catch { }
+                    throw;
+                }
+            });
+        }
     }
 }

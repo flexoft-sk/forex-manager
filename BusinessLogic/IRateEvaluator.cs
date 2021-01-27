@@ -9,5 +9,6 @@ namespace Flexoft.ForexManager.BusinessLogic
 	public interface IRateEvaluator
 	{
 		Task EvaluateRateAsync(Currency from, Currency to);
+		Task<(double amount, string currency)> CloseAsync(int pos, double rate, double? fee);
 	}
 }

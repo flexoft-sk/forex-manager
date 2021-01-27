@@ -62,6 +62,25 @@ namespace Flexoft.ForexManager.BusinessLogic
 			}
 		}
 
+		public async Task<(double amount, string currency)> CloseAsync(int id, double rate, double? fee) 
+		{
+			var position = await _dataStore.Position.GetPositionAsync(id);
+
+			if (position.CloseStamp.HasValue)
+			{
+				throw new InvalidOperationException($"Position {id} is already closed.");
+			}
+
+			var toSell = position.OpenAmount * position.OpenRate;
+			var bought = toSell * rate;
+
+			var diff = await _dataStore.Position.CloseAsync(id, bought, rate, fee);
+
+			_logger.LogInformation($"Position {id} closed with diff {diff}");
+
+			return (bought, position.FromCurrency);
+		}
+
 		async Task<List<Position>> FindCloseOportunitiesAsync(Currency from, Currency to, float rate)
 		{
 			var offset = rate > 0
