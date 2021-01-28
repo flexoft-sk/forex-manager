@@ -34,6 +34,8 @@ namespace Flexoft.ForexManager.BusinessLogic
 			var rate = await _rateFatcher.GetRateAsync(from, to);
 			var reversedRate = 1f / rate;
 
+			_logger.LogInformation($"Evaluating {from} -> {to} with: {rate} [{reversedRate}]");
+
 			var closeOportunities = await FindCloseOportunitiesAsync(from, to, rate);
 
 			_logger.LogInformation($"Found opportunities for {from} -> {to}: {string.Join(",", closeOportunities.Select(p => p.Id))}");
