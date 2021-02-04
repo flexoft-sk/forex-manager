@@ -44,14 +44,15 @@ namespace Flexoft.ForexManager.BusinessLogic
 			_logger.LogInformation($"Found opportunities for {to} -> {from}: {string.Join(",", reverseOpportunities.Select(p => p.Id))}");
 			closeOportunities.AddRange(reverseOpportunities);
 
-			var notification = string.Join("<br>", closeOportunities.Select(p => $"[{p.Id}] {p.FromCurrency} -> {p.ToCurrency} : {p.OpenAmount} for {p.OpenRate}. Proposal: {p.OpenAmount*p.OpenRate}"));
+			var notification = string.Join("<br>", closeOportunities.Select(p => $"[{p.Id}] {p.FromCurrency} -> {p.ToCurrency} : {p.OpenAmount} for {p.OpenRate}. Proposal: {p.OpenAmount*p.OpenRate} [{rate} - {reversedRate}]"));
 
 			if (!string.IsNullOrEmpty(notification))
 			{
 				_notificationManager.Notify("Opportunities", notification, _options.NotificationTarget);
 			}
 
-			if (DateTime.UtcNow.Hour == _options.OpenHour)
+			var now = DateTime.UtcNow;
+			if (now.Hour == _options.OpenHour && now.DayOfWeek != DayOfWeek.Saturday && now.DayOfWeek != DayOfWeek.Sunday)
 			{
 				var reversedAmount = _options.OpenAmount / reversedRate;
 				await _dataStore.Position.OpenAsync(from.ToString(), to.ToString(), _options.OpenAmount, rate);
