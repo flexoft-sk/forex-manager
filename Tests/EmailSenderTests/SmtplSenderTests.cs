@@ -15,7 +15,7 @@ namespace EmailSenderTests
             _logger = Substitute.For<ILogger<SecureSmtpSender>>();
         }
 
-        [Test]
+        //[Test]
         public void IntegrationTest()
         {
             var options = new EmailSenderOptions
@@ -28,7 +28,7 @@ namespace EmailSenderTests
             };
 
             var sender = new SecureSmtpSender(_logger, options);
-            sender.Send("test", "<h3>From unit test</h3>", "vladimir.iszer@gmail.com");
+            sender.Send("test", "<h3>From unit test</h3>", "test.target@gtest.com");
         }
     }
 }

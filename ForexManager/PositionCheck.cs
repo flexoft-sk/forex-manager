@@ -26,6 +26,8 @@ namespace ForexManager
             catch (Exception exception)
             {
                 log.LogError($"Position check failed due {exception}");
+
+				_evaluator.NotificationManager.Notify("FxMan Failure", exception.ToString(), _evaluator.NotificationTarget);
             }
         }
 	}

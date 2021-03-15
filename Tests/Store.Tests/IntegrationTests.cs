@@ -5,15 +5,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NSubstitute;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Store.Tests
 {
     public class IntegrationTests
     {
-        [Test]
+        //[Test]
         public void DbCreationTest()
         {
             var serviceCollection = new ServiceCollection();

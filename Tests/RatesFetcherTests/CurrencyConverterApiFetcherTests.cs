@@ -27,7 +27,7 @@ namespace RatesFetcherTests
             _underTest = new CurrencyConverterApiFetcher(_logger, _options);
         }
 
-        [Test]
+        //[Test]
         public async Task IntegrationTest()
         {
             var rate = await _underTest.GetRateAsync(Currency.EUR, Currency.USD);

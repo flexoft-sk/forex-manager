@@ -1,7 +1,5 @@
-﻿using Flexoft.ForexManager.RatesFetcher;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Flexoft.ForexManager.NotificationManager;
+using Flexoft.ForexManager.RatesFetcher;
 using System.Threading.Tasks;
 
 namespace Flexoft.ForexManager.BusinessLogic
@@ -10,5 +8,9 @@ namespace Flexoft.ForexManager.BusinessLogic
 	{
 		Task EvaluateRateAsync(Currency from, Currency to);
 		Task<(double amount, string currency)> CloseAsync(int pos, double rate, double? fee);
+
+		INotificationManager NotificationManager { get; }
+
+		public string NotificationTarget { get; }
 	}
 }

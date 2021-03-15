@@ -14,7 +14,6 @@ namespace Flexoft.ForexManager.BusinessLogic
 	public class DefaultRateEvaluator : IRateEvaluator
 	{
 		private readonly ILogger<DefaultRateEvaluator> _logger;
-		private readonly INotificationManager _notificationManager;
 		private readonly IRates _rateFatcher;
 		private readonly IDataStore _dataStore;
 		private readonly RateEvaluatorOptions _options;
@@ -23,11 +22,15 @@ namespace Flexoft.ForexManager.BusinessLogic
 			INotificationManager notificationManager, IRates rateFatcher, IDataStore dataStore)
 		{
 			_logger = logger ?? throw new ArgumentNullException(nameof(logger));
-			_notificationManager = notificationManager ?? throw new ArgumentNullException(nameof(notificationManager));
+			NotificationManager = notificationManager ?? throw new ArgumentNullException(nameof(notificationManager));
 			_rateFatcher = rateFatcher ?? throw new ArgumentNullException(nameof(rateFatcher));
 			_dataStore = dataStore ?? throw new ArgumentNullException(nameof(dataStore));
 			_options = options ?? throw new ArgumentNullException(nameof(options));
 		}
+
+		public INotificationManager NotificationManager { get; }
+
+		public string NotificationTarget => _options.NotificationTarget;
 
 		public async Task EvaluateRateAsync(Currency from, Currency to)
 		{
@@ -48,7 +51,7 @@ namespace Flexoft.ForexManager.BusinessLogic
 
 			if (!string.IsNullOrEmpty(notification))
 			{
-				_notificationManager.Notify("Opportunities", notification, _options.NotificationTarget);
+				NotificationManager.Notify("Opportunities", notification, NotificationTarget);
 			}
 
 			var now = DateTime.UtcNow;
@@ -61,7 +64,7 @@ namespace Flexoft.ForexManager.BusinessLogic
 				_logger.LogInformation($"Opened: {from} -> {to} for {rate}");
 				_logger.LogInformation($"Opened: {to} -> {from} for {reversedRate}");
 
-				_notificationManager.Notify("Opened", $"{from} -> {to} : {rate} [{reversedRate}]", _options.NotificationTarget);
+				NotificationManager.Notify("Opened", $"{from} -> {to} : {rate} [{reversedRate}]", NotificationTarget);
 			}
 		}
 
