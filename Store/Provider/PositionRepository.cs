@@ -21,7 +21,7 @@ namespace Flexoft.ForexManager.Store.Provider
 			_contextProvider = contextProvider;
 		}
 
-		public async Task OpenAsync(string from, string to, float amount, float rate)
+		public async Task<int> OpenAsync(string from, string to, float amount, float rate)
 		{
             if (string.IsNullOrEmpty(from))
 			{
@@ -44,16 +44,18 @@ namespace Flexoft.ForexManager.Store.Provider
             }
 
             using var ctx = GetContext();
-            ctx.Position.Add(new Contracts.Position 
-            { 
+            var position = new Contracts.Position
+            {
                 FromCurrency = from,
                 ToCurrency = to,
                 OpenAmount = amount,
                 OpenRate = rate,
                 OpenStamp = DateTime.UtcNow
-            });
+            };
+            ctx.Position.Add(position);
 
             await ctx.SaveChangesAsync();
+            return position.Id;
         }
 
         public async Task<List<Position>> FindOpenPositionsAsync(string from, string to, float rateLimit) 

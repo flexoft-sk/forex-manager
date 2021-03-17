@@ -89,7 +89,7 @@ namespace Flexoft.ForexManager.BusinessLogic
 
 		async Task<List<Position>> FindCloseOportunitiesAsync(Currency from, Currency to, float rate)
 		{
-			var offset = rate > 0
+			var offset = rate >= 1
 				? rate + _options.CloseOffset
 				: 1 / ((1f / rate) - _options.CloseOffset);
 			return await _dataStore.Position.FindOpenPositionsAsync(from.ToString(), to.ToString(), offset);

@@ -47,5 +47,31 @@ namespace Store.Tests
             position.OpenStamp.Should().BeOnOrAfter(beforeWriteStamp);
             position.OpenStamp.Should().BeOnOrBefore(afterWriteStamp);
         }
+
+        [Test]
+        public async Task FindOpenPositionsWorksCorrectly()
+        {
+            var p1 = await _underTest.OpenAsync("EUR", "USD", 200, 1.2f);
+            var p2 = await _underTest.OpenAsync("EUR", "USD", 200, 1.2f);
+            var p3 = await _underTest.OpenAsync("EUR", "USD", 200, 1.3f);
+            var p4 = await _underTest.OpenAsync("EUR", "USD", 200, 1.3f);
+
+            await _underTest.CloseAsync(p2, 250, 2, null);
+            await _underTest.CloseAsync(p4, 250, 2, null);
+
+            var positions = await _underTest.FindOpenPositionsAsync("EUR", "USD", 1.25f);
+
+            positions.Count.Should().Be(1, "there are just two open and only one from them fits");
+            positions[0].Id.Should().Be(p3, "only p3 is open and opened higher");
+        }
+
+        [Test]
+        public async Task PositionCanBeClosedJustOnce()
+        {
+            var id = await _underTest.OpenAsync("EUR", "USD", 200, 1.2f);
+            await _underTest.CloseAsync(id, 250, 2, null);
+
+            _underTest.Invoking(async ut => await ut.CloseAsync(id, 250, 2, null)).Should().Throw<InvalidOperationException>();
+        }
     }
 }

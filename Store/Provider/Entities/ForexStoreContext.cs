@@ -1,5 +1,6 @@
 ﻿using Flexoft.ForexManager.Store.Contracts;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -41,6 +42,7 @@ namespace Flexoft.ForexManager.Store.Provider.Entities
             if (_isInMemory)
             {
                 optionsBuilder.UseInMemoryDatabase(Guid.NewGuid().ToString());
+                optionsBuilder.ConfigureWarnings(bldr => bldr.Ignore(InMemoryEventId.TransactionIgnoredWarning));
             }
             else
             {
