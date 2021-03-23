@@ -34,6 +34,12 @@ namespace Flexoft.ForexManager.BusinessLogic
 
 		public async Task EvaluateRateAsync(Currency from, Currency to)
 		{
+			var now = DateTime.UtcNow;
+			if (now.DayOfWeek == DayOfWeek.Saturday && now.DayOfWeek == DayOfWeek.Sunday)
+			{
+				return;
+			}
+
 			var rate = await _rateFatcher.GetRateAsync(from, to);
 			var reversedRate = 1f / rate;
 
@@ -54,8 +60,7 @@ namespace Flexoft.ForexManager.BusinessLogic
 				NotificationManager.Notify("Opportunities", notification, NotificationTarget);
 			}
 
-			var now = DateTime.UtcNow;
-			if (now.Hour == _options.OpenHour && now.DayOfWeek != DayOfWeek.Saturday && now.DayOfWeek != DayOfWeek.Sunday)
+			if (now.Hour == _options.OpenHour)
 			{
 				var reversedAmount = _options.OpenAmount / reversedRate;
 				await _dataStore.Position.OpenAsync(from.ToString(), to.ToString(), _options.OpenAmount, rate);
@@ -89,9 +94,7 @@ namespace Flexoft.ForexManager.BusinessLogic
 
 		async Task<List<Position>> FindCloseOportunitiesAsync(Currency from, Currency to, float rate)
 		{
-			var offset = rate >= 1
-				? rate + _options.CloseOffset
-				: 1 / ((1f / rate) - _options.CloseOffset);
+			var offset = rate * (1 + (_options.CloseOffsetPercentage * 0.01f ));
 			return await _dataStore.Position.FindOpenPositionsAsync(from.ToString(), to.ToString(), offset);
 		}
 	}

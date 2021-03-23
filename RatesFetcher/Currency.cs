@@ -1,6 +1,7 @@
 ﻿namespace Flexoft.ForexManager.RatesFetcher
 {
-    public enum Currency
+	/// <summary> Available currencies</summary>
+	public enum Currency
     {
         EUR,
         USD

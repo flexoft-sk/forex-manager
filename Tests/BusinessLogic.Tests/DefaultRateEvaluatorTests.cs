@@ -28,7 +28,7 @@ namespace BusinessLogic.Tests
 		{
 			_options = new RateEvaluatorOptions
 			{
-				CloseOffset = 0.003f,
+				CloseOffsetPercentage = 0.26f,
 				NotificationTarget = TargetEmail,
 				OpenAmount = 10,
 				OpenHour = DateTime.UtcNow.Hour
@@ -97,7 +97,7 @@ namespace BusinessLogic.Tests
 		}
 
 		[Test]
-		public async Task OffsetIsDynamiccalyComputed()
+		public async Task OffsetIsDynamicalyComputed()
 		{
 			_rateFetcher.GetRateAsync(Currency.EUR, Currency.USD).Returns(Task.FromResult(1.195f));
 			_position.FindOpenPositionsAsync(Arg.Any<string>(), Arg.Any<string>(), Arg.Any<float>()).Returns(Task.FromResult(new List<Position>()));
@@ -112,7 +112,7 @@ namespace BusinessLogic.Tests
 
 			offset.Should().NotBe(float.NaN, "offset needs to be evaluated");
 			// this is needed because of precision (1.195f + 0.003f = 1.1980000007)
-			offset.Should().BeInRange(1.198f, 1.1981f, "offset is equal to configured one");
+			offset.Should().BeInRange(1.198f, 1.19811f, "offset is equal to configured one");
 
 			offsetOfReverted.Should().NotBe(float.NaN, "reverted offset needs to be evaluated");
 			offsetOfReverted.Should().BeInRange(0.8369f, 0.8398f, "reverted offset is less than non-reverted");

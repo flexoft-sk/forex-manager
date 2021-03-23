@@ -1,7 +1,10 @@
 ﻿namespace Flexoft.ForexManager.RatesFetcher
 {
-    public class RatesFetcherOptions
+	/// <summary> Options for rate fetcher</summary>
+	public class RatesFetcherOptions
     {
-        public string ApiKey { get; set; }
+		/// <summary>Gets or sets the API key.</summary>
+		/// <value>The API key.</value>
+		public string ApiKey { get; set; }
     }
 }

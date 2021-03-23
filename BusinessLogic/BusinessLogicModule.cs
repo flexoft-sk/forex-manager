@@ -15,7 +15,7 @@ namespace Flexoft.ForexManager.BusinessLogic
 				var config = provider.GetService<IConfiguration>();
 				return new RateEvaluatorOptions
 				{
-					CloseOffset = float.Parse(config["Logic:CloseOffset"]),
+					CloseOffsetPercentage = float.Parse(config["Logic:CloseOffsetPercentage"]),
 					NotificationTarget = config["Logic:NotificationTarget"],
 					OpenHour = int.Parse(config["Logic:OpenHour"]),
 					OpenAmount = int.Parse(config["Logic:OpenAmount"])
