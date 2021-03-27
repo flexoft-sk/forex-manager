@@ -35,7 +35,7 @@ namespace Flexoft.ForexManager.BusinessLogic
 		public async Task EvaluateRateAsync(Currency from, Currency to)
 		{
 			var now = DateTime.UtcNow;
-			if (now.DayOfWeek == DayOfWeek.Saturday && now.DayOfWeek == DayOfWeek.Sunday)
+			if (now.DayOfWeek == DayOfWeek.Saturday || now.DayOfWeek == DayOfWeek.Sunday)
 			{
 				return;
 			}
@@ -63,13 +63,13 @@ namespace Flexoft.ForexManager.BusinessLogic
 			if (now.Hour == _options.OpenHour)
 			{
 				var reversedAmount = _options.OpenAmount / reversedRate;
-				await _dataStore.Position.OpenAsync(from.ToString(), to.ToString(), _options.OpenAmount, rate);
-				await _dataStore.Position.OpenAsync(to.ToString(), from.ToString(), reversedAmount, reversedRate);
+				var openedId = await _dataStore.Position.OpenAsync(from.ToString(), to.ToString(), _options.OpenAmount, rate);
+				var reverseOpenedId = await _dataStore.Position.OpenAsync(to.ToString(), from.ToString(), reversedAmount, reversedRate);
 
 				_logger.LogInformation($"Opened: {from} -> {to} for {rate}");
 				_logger.LogInformation($"Opened: {to} -> {from} for {reversedRate}");
 
-				NotificationManager.Notify("Opened", $"{from} -> {to} : {rate} [{reversedRate}]", NotificationTarget);
+				NotificationManager.Notify("Opened", $"[{openedId}/{reverseOpenedId}] {from} -> {to} : {rate} [{reversedRate}]", NotificationTarget);
 			}
 		}
 
