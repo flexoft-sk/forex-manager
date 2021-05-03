@@ -1,0 +1,85 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <meta charset="utf-8" />
+        <title>FxMan::Close</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="container">
+            <h3 class="mt-5">Closing position <span id="position-id">__id__</span></h3>
+             <div id="ratio-alert" class="alert alert-danger d-none col col-3" role="alert">
+                <small>Ratio is required and must be a decimal</small> 
+              </div>
+
+             <div class="spinner-border d-none" role="status">
+                <span class="sr-only">Loading...</span>
+             </div>
+
+             <form id="ratio-form">
+                <div class="form-group">
+                  <label for="ratio">Ratio to close with</label>
+                  <input id="ratio" type="number" step="0.001" class="form-control col col-3" aria-describedby="ratioHelp">
+                  <small id="ratioHelp" class="form-text text-muted">The ratio the position will be closed with.</small>
+                </div>
+                <button id="submit" type="submit" class="btn btn-primary col col-1 mt-3">Submit</button>
+              </form>
+
+              <div class="col col-12 alert alert-dark d-none">
+                <span id="call-result"></span>
+              </div>
+        </div>
+        
+
+        <script
+			  src="https://code.jquery.com/jquery-3.6.0.min.js"
+			  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+			  crossorigin="anonymous"></script>
+
+        <script>
+            function showResult(result) {
+                $(".spinner-border").addClass("d-none"); 
+                $("#ratio-form").removeClass("d-none");
+
+                $(".alert-dark").removeClass("d-none");
+                $("#call-result").html(result);
+            }
+
+            $(document).ready(function () {
+                $("#submit").click(e => {
+                    e.preventDefault();
+                    var ratio = $("#ratio").val();
+
+                    if (Number(ratio) + '' !== ratio) {
+                        console.info('ee');
+                        $("#ratio-alert").removeClass("d-none");
+                        return;
+                    }
+
+                    $("#ratio-alert").addClass("d-none");
+                    console.info(ratio);
+
+
+                    $(".spinner-border").removeClass("d-none");
+                    $("#ratio-form").addClass("d-none");
+                    $(".alert-dark").addClass("d-none");
+
+                    ratio = ratio.replace(',', '.');
+
+                    $.ajax({
+                        type: "GET",
+                        url: "/api/Close?code=srBZJvh49/KBUKuz0IWTun4hasfh/7TBTZplXK56KUXtJsgeyCqarg==&pos=__id__&rate=" + ratio,
+                        crossDomain: true,
+                        success: function (response) {
+                            console.info(response);
+                            showResult(JSON.stringify(response));
+                        },
+                        error: function(jqXHR, status, error) {
+                            showResult(status + ': ' + error);
+                        }
+                    });
+                });
+            });
+        </script>              
+    </body>
+</html>

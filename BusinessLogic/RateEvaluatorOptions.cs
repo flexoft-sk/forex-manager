@@ -18,5 +18,9 @@
 		/// <summary>Gets or sets the open amount.</summary>
 		/// <value>The open amount.</value>
 		public int OpenAmount { get; set; }
+
+		/// <summary>Gets or sets the url to show UI for closing.</summary>
+		/// <value>The url to show UI for closing.</value>
+		public string CloseUIUrl { get; set; }
 	}
 }

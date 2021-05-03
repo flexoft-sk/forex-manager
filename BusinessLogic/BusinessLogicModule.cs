@@ -18,7 +18,8 @@ namespace Flexoft.ForexManager.BusinessLogic
 					CloseOffsetPercentage = float.Parse(config["Logic:CloseOffsetPercentage"]),
 					NotificationTarget = config["Logic:NotificationTarget"],
 					OpenHour = int.Parse(config["Logic:OpenHour"]),
-					OpenAmount = int.Parse(config["Logic:OpenAmount"])
+					OpenAmount = int.Parse(config["Logic:OpenAmount"]),
+					CloseUIUrl = config["Logic:CloseUIUrl"]
 				};
 			});
 		}

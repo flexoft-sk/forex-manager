@@ -7,6 +7,12 @@
     <UserSecretsId>c1be9ccf-ced0-4746-9cc6-1b7c39645a9b</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="close.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="close.html" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Microsoft.ApplicationInsights.WorkerService" Version="2.15.0" />
     <PackageReference Include="Microsoft.Azure.Functions.Extensions" Version="1.1.0" />
     <PackageReference Include="Microsoft.Azure.WebJobs.Extensions.Storage" Version="3.0.10" />

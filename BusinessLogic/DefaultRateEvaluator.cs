@@ -26,6 +26,8 @@ namespace Flexoft.ForexManager.BusinessLogic
 			_rateFatcher = rateFatcher ?? throw new ArgumentNullException(nameof(rateFatcher));
 			_dataStore = dataStore ?? throw new ArgumentNullException(nameof(dataStore));
 			_options = options ?? throw new ArgumentNullException(nameof(options));
+
+			_options.CloseUIUrl += (_options.CloseUIUrl.Contains("?") ? "&" : "?");
 		}
 
 		public INotificationManager NotificationManager { get; }
@@ -53,7 +55,7 @@ namespace Flexoft.ForexManager.BusinessLogic
 			_logger.LogInformation($"Found opportunities for {to} -> {from}: {string.Join(",", reverseOpportunities.Select(p => p.Id))}");
 			closeOportunities.AddRange(reverseOpportunities);
 
-			var notification = string.Join("<br>", closeOportunities.Select(p => $"[{p.Id}] {p.FromCurrency} -> {p.ToCurrency} : {p.OpenAmount} for {p.OpenRate}. Proposal: {p.OpenAmount*p.OpenRate} [{rate} - {reversedRate}]"));
+			var notification = string.Join("<br>", closeOportunities.Select(p => $"<a href=\"{_options.CloseUIUrl}id={p.Id}\">[{p.Id}]</a> {p.FromCurrency} -> {p.ToCurrency} : {p.OpenAmount} for {p.OpenRate}. Proposal: {p.OpenAmount*p.OpenRate} [{rate} - {reversedRate}]"));
 
 			if (!string.IsNullOrEmpty(notification))
 			{
