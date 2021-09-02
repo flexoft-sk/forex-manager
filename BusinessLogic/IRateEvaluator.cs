@@ -21,6 +21,12 @@ namespace Flexoft.ForexManager.BusinessLogic
 		/// <returns></returns>
 		Task EvaluateRateAsync(Currency from, Currency to);
 
+		/// <summary>Evaluates positions with provided rate.</summary>
+		/// <param name="from">From.</param>
+		/// <param name="to">To.</param>
+		/// <param name="rate">The rate.</param>
+		Task EvaluateRateAsync(Currency from, Currency to, float rate);
+
 		/// <summary>Closes a position with provided rate and fees.</summary>
 		/// <param name="pos">The position.</param>
 		/// <param name="rate">The rate.</param>

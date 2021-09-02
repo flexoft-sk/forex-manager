@@ -6,7 +6,6 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Flexoft.ForexManager.BusinessLogic
@@ -34,15 +33,8 @@ namespace Flexoft.ForexManager.BusinessLogic
 
 		public string NotificationTarget => _options.NotificationTarget;
 
-		public async Task EvaluateRateAsync(Currency from, Currency to)
+		public async Task EvaluateRateAsync(Currency from, Currency to, float rate) 
 		{
-			var now = DateTime.UtcNow;
-			if (now.DayOfWeek == DayOfWeek.Saturday || now.DayOfWeek == DayOfWeek.Sunday)
-			{
-				return;
-			}
-
-			var rate = await _rateFatcher.GetRateAsync(from, to);
 			var reversedRate = 1f / rate;
 
 			_logger.LogInformation($"Evaluating {from} -> {to} with: {rate} [{reversedRate}]");
@@ -55,12 +47,26 @@ namespace Flexoft.ForexManager.BusinessLogic
 			_logger.LogInformation($"Found opportunities for {to} -> {from}: {string.Join(",", reverseOpportunities.Select(p => p.Id))}");
 			closeOportunities.AddRange(reverseOpportunities);
 
-			var notification = string.Join("<br>", closeOportunities.Select(p => $"<a href=\"{_options.CloseUIUrl}id={p.Id}\">[{p.Id}]</a> {p.FromCurrency} -> {p.ToCurrency} : {p.OpenAmount} for {p.OpenRate}. Proposal: {p.OpenAmount*p.OpenRate} [{rate} - {reversedRate}]"));
+			var notification = string.Join("<br>", closeOportunities.Select(p => $"<a href=\"{_options.CloseUIUrl}id={p.Id}\">[{p.Id}]</a> {p.FromCurrency} -> {p.ToCurrency} : {p.OpenAmount} for {p.OpenRate}. Proposal: {p.OpenAmount * p.OpenRate} [{rate} - {reversedRate}]"));
 
 			if (!string.IsNullOrEmpty(notification))
 			{
 				NotificationManager.Notify("Opportunities", notification, NotificationTarget);
 			}
+		}
+
+		public async Task EvaluateRateAsync(Currency from, Currency to)
+		{
+			var now = DateTime.UtcNow;
+			if (now.DayOfWeek == DayOfWeek.Saturday || now.DayOfWeek == DayOfWeek.Sunday)
+			{
+				return;
+			}
+
+			var rate = await _rateFatcher.GetRateAsync(from, to);
+			var reversedRate = 1f / rate;
+
+			await EvaluateRateAsync(from, to, rate);
 
 			if (now.Hour == _options.OpenHour)
 			{

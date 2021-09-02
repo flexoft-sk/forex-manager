@@ -31,7 +31,8 @@ namespace BusinessLogic.Tests
 				CloseOffsetPercentage = 0.26f,
 				NotificationTarget = TargetEmail,
 				OpenAmount = 10,
-				OpenHour = DateTime.UtcNow.Hour
+				OpenHour = DateTime.UtcNow.Hour,
+				CloseUIUrl = "https://test.com"
 			};
 			var logger = Substitute.For<ILogger<DefaultRateEvaluator>>();
 			_notificationManager = Substitute.For<INotificationManager>();
