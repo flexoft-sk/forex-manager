@@ -1,0 +1,29 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+
+steps:
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'restore'
+    projects: '*/**/.csproj'
+    configuration: Release
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'build'
+    projects: '*/**/.csproj'
+    configuration: Release
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'test'
+    projects: '*/**/*test*.csproj'
+    configuration: Release
