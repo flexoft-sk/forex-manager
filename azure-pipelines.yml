@@ -11,18 +11,21 @@ variables:
 
 steps:
 - task: DotNetCoreCLI@2
+  name: Restore
   inputs:
     command: 'restore'
-    projects: '*/**/.csproj'
+    projects: '*/**/*.csproj'
     configuration: Release
 
 - task: DotNetCoreCLI@2
+  name: Build
   inputs:
     command: 'build'
-    projects: '*/**/.csproj'
+    projects: '*/**/*.csproj'
     configuration: Release
 
 - task: DotNetCoreCLI@2
+  name: Test
   inputs:
     command: 'test'
     projects: '*/**/*test*.csproj'
