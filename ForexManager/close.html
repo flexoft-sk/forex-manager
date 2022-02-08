@@ -68,7 +68,7 @@
 
                     $.ajax({
                         type: "GET", 
-                        url: "/api/Close?code=rhYrUxrBRUyxGcj7tOGzNawTRzMh3HGSl/WA3CwwWgTHZmIkfCnopQ==&pos=__id__&rate=" + ratio,
+                        url: "__close_url__pos=__id__&rate=" + ratio,
                         crossDomain: true,
                         success: function (response) {
                             console.info(response);

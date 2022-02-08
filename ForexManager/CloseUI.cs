@@ -2,18 +2,24 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Extensions.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
 using System.IO;
 using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Flexoft.ForexManager.ForexManager
 {
-	public static class CloseUI
+	public class CloseUI
 	{
         static readonly string _htmlTemplate;
+        private readonly IConfiguration _configuration;
+
+        public CloseUI(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
 
         static CloseUI() 
         {
@@ -23,17 +29,24 @@ namespace Flexoft.ForexManager.ForexManager
         }
 
         [FunctionName("CloseUI")]
-        public static IActionResult Run(
+        public IActionResult Run(
             [HttpTrigger(AuthorizationLevel.Function, "get", Route = null)] HttpRequest req,
             ILogger log)
         {
             try
             {
                 var id = int.Parse(req.Query["id"]);
+                var url = _configuration["CloseFunctionRelativeURL"];
+
+                url += url.Contains('?')
+                    ? "&"
+                    : "?";
 
                 return new ContentResult
                 {
-                    Content = _htmlTemplate.Replace("__id__", id.ToString()),
+                    
+                    Content = _htmlTemplate.Replace("__id__", id.ToString())
+                        .Replace("__close_url__", url),
                     StatusCode = 200,
                     ContentType = "text/html; charset=utf-8"
                 };
