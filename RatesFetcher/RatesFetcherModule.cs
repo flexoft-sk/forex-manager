@@ -10,8 +10,9 @@ namespace Flexoft.ForexManager.RatesFetcher
     {
         public static void RegisterRatesFetcher(this IServiceCollection services)
         {
-            services.AddSingleton<IRates, CurrencyConverterApiFetcher>();
-            services.AddSingleton<ExchangeRateApiFetcher>();
+            //services.AddSingleton<IRates, CurrencyConverterApiFetcher>();
+            //services.AddSingleton<ExchangeRateApiFetcher>();
+            services.AddSingleton<IRates, ExchangeRateApiFetcher>();
             services.AddSingleton(provider => {
                 var config = provider.GetService<IConfiguration>();
                 return new RatesFetcherOptions
