@@ -12,12 +12,14 @@ namespace Flexoft.ForexManager.RatesFetcher
         {
             //services.AddSingleton<IRates, CurrencyConverterApiFetcher>();
             //services.AddSingleton<ExchangeRateApiFetcher>();
-            services.AddSingleton<IRates, ExchangeRateApiFetcher>();
+            //services.AddSingleton<IRates, ExchangeRateApiFetcher>();
+            services.AddSingleton<IRates, OpenExchangeRatesFetcher>();
             services.AddSingleton(provider => {
                 var config = provider.GetService<IConfiguration>();
                 return new RatesFetcherOptions
                 {
                     ApiKey = config["RatesFetcher:ApiKey"],
+                    AltApiKey = config["RatesFetcher:AltApiKey"],
                 };
             });
         }
